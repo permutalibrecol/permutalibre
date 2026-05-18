@@ -1,70 +1,93 @@
 ---
-// Código de Astro: Aquí definimos los precios base para Colombia en este 2026
-const cryptoPrices = [
-  { name: 'Bitcoin', ticker: 'BTC', price: '$42.500.000', change: '+2.5%' },
-  { name: 'Ethereum', ticker: 'ETH', price: '$2.200.000', change: '+1.8%' },
-  { name: 'Tether', ticker: 'USDT', price: '$4.250', change: '0.0%' },
-  { name: 'Solana', ticker: 'SOL', price: '$350.000', change: '+4.2%' }
+// Configuración de Servidor en Astro: Márgenes de ganancia y valores base en Colombia
+const usdBasePrice = 4250; // Tasa promedio del dólar en COP
+
+const cryptos = [
+  { name: 'Bitcoin', ticker: 'BTC', usdPrice: 42500, margin: 2.5, icon: '₿' },
+  { name: 'Ethereum', ticker: 'ETH', usdPrice: 2200, margin: 2.0, icon: 'Ξ' },
+  { name: 'Tether', ticker: 'USDT', usdPrice: 1.0, margin: 1.5, icon: '₮' },
+  { name: 'Solana', ticker: 'SOL', usdPrice: 350, margin: 2.2, icon: '◎' }
 ];
+
+// Cálculo de tarifas en pesos colombianos usando lógica matemática automatizada
+const calculateCOP = (usdPrice, margin) => {
+  const baseValue = usdPrice * usdBasePrice;
+  const priceWithMargin = baseValue - (baseValue * (margin / 100)); // Precio de compra al usuario
+  return Math.round(priceWithMargin).toLocaleString('es-CO');
+};
 ---
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Permutalibre - Intercambio Crypto Colombia</title>
+    <title>Permutalibre | Intercambio Seguro de Criptomonedas en Colombia</title>
+    <meta name="description" content="Cambia tus criptomonedas (BTC, ETH, USDT) por pesos colombianos de forma rápida y segura. Tarifas transparentes sin intermediarios.">
 </head>
-<body style="margin:0; font-family:sans-serif; background:linear-gradient(135deg, #0a1e2e 0%, #0f3460 100%); color:#ecf0f1; min-height:100vh;">
+<body style="margin:0; font-family:-apple-system, BlinkMacSystemFont, sans-serif; background:#0a1e2e; color:#ecf0f1; min-height:100vh;">
 
-    <!-- Barra de Navegación -->
-    <header style="background:rgba(22, 33, 62, 0.9); border-bottom: 2px solid #00d4ff; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; backdrop-filter: blur(10px);">
-        <a href="#" style="font-size: 1.5rem; font-weight: bold; color: #00d4ff; text-decoration: none;">⚡ Permutalibre</a>
-        <nav style="display: flex; gap: 1.5rem;">
-            <a href="#" style="color:#ecf0f1; text-decoration:none;">Inicio</a>
-            <a href="#" style="color:#ecf0f1; text-decoration:none;">Precios</a>
-            <a href="#" style="color:#ecf0f1; text-decoration:none;">Contacto</a>
+    <!-- Encabezado de la Plataforma -->
+    <header style="background:#16213e; border-bottom:2px solid #00d4ff; padding:1.2rem 2rem; display:flex; justify-content:space-between; align-items:center; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+        <div style="font-size:1.6rem; font-weight:800; color:#00d4ff; letter-spacing:1px;">⚡ PERMUTALIBRE</div>
+        <nav style="display:flex; gap:2rem; font-weight:600;">
+            <a href="#" style="color:#ecf0f1; text-decoration:none; hover:color:#00d4ff;">Inicio</a>
+            <a href="#calculadora" style="color:#ecf0f1; text-decoration:none;">Calculadora</a>
+            <a href="https://wa.me" target="_blank" style="color:#00ff88; text-decoration:none;">Soporte WhatsApp</a>
         </nav>
     </header>
 
-    <!-- Sección Principal -->
-    <main style="max-width: 1200px; margin: 0 auto; padding: 3rem 2rem; text-align: center;">
-        <h1 style="font-size: 3.5rem; background: linear-gradient(135deg, #00d4ff, #00ff88); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 1rem;">
-            Cambia Cripto por Pesos Colombianos
+    <!-- Héroe Principal (Optimizado para SEO con palabras clave) -->
+    <main style="max-width:1100px; margin:0 auto; padding:4rem 1.5rem; text-align:center;">
+        <h1 style="font-size:3.8rem; font-weight:800; background:linear-gradient(135deg, #00d4ff, #00ff88); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:1.5rem; line-height:1.2;">
+            Cambia tus Criptomonedas por Pesos Colombianos
         </h1>
-        <p style="color: #bdc3c7; font-size: 1.2rem; max-width: 600px; margin: 0 auto 3rem auto;">
-            La plataforma más rápida, segura y transparente para operar en Colombia sin intermediarios molestos.
+        <p style="color:#bdc3c7; font-size:1.3rem; max-width:700px; margin:0 auto 3.5rem auto; line-height:1.6;">
+            La alternativa profesional a Google Sites. Retiros directos a cuentas bancarias en Colombia con la menor comisión del mercado financiero cripto.
         </p>
 
-        <!-- Tabla de Precios en Vivo usando los bloques de Astro -->
-        <h2 style="color: #00d4ff; margin-bottom: 1.5rem; text-align: left; max-width: 800px; margin-left: auto; margin-right: auto;">Precios de Referencia (COP)</h2>
-        <div style="background: #16213e; border: 1px solid rgba(0, 212, 255, 0.2); border-radius: 12px; max-width: 800px; margin: 0 auto 3rem auto; overflow: hidden; box-shadow: 0 0 30px rgba(0,212,255,0.1);">
-            <table style="width: 100%; border-collapse: collapse; text-align: left;">
-                <thead>
-                    <tr style="background: rgba(0, 212, 255, 0.1); color: #00d4ff;">
-                        <th style="padding: 1rem;">Moneda</th>
-                        <th style="padding: 1rem;">Precio Promedio</th>
-                        <th style="padding: 1rem;">Tendencia</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {cryptoPrices.map((crypto) => (
-                        <tr style="border-bottom: 1px solid rgba(236, 240, 241, 0.1);">
-                            <td style="padding: 1rem; font-weight: bold;">{crypto.name} ({crypto.ticker})</td>
-                            <td style="padding: 1rem; color: #00ff88;">{crypto.price} COP</td>
-                            <td style="color: {crypto.change.includes('+') ? '#00ff88' : '#ff4757'}; padding: 1rem;">{crypto.change}</td>
+        <!-- Bloque de la Calculadora e Intercambio Real -->
+        <section id="calculadora" style="background:#16213e; border:1px solid rgba(0, 212, 255, 0.2); border-radius:16px; padding:2.5rem; max-width:850px; margin:0 auto; box-shadow:0 0 40px rgba(0,212,255,0.15);">
+            <h2 style="color:#00d4ff; margin-bottom:2rem; font-size:1.8rem;">📊 Tabla de Liquidación de Activos (COP)</h2>
+            
+            <div style="overflow-x:auto;">
+                <table style="width:100%; border-collapse:collapse; text-align:left; font-size:1.1rem;">
+                    <thead>
+                        <tr style="background:rgba(0, 212, 255, 0.1); color:#00d4ff; border-bottom:2px solid rgba(0, 212, 255, 0.3);">
+                            <th style="padding:1.2rem;">Token</th>
+                            <th style="padding:1.2rem;">Margen Red</th>
+                            <th style="padding:1.2rem; text-align:right;">Te Pagamos (Por Unidad)</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
+                    </thead>
+                    <tbody>
+                        {cryptos.map((crypto) => (
+                            <tr style="border-bottom:1px solid rgba(236, 240, 241, 0.08); transition: background 0.3s;">
+                                <td style="padding:1.2rem; font-weight:bold; display:flex; align-items:center; gap:0.5rem;">
+                                    <span style="color:#00ff88; font-size:1.4rem;">{crypto.icon}</span> 
+                                    {crypto.name} ({crypto.ticker})
+                                </td>
+                                <td style="padding:1.2rem; color:#bdc3c7;">-{crypto.margin}%</td>
+                                <td style="padding:1.2rem; text-align:right; color:#00ff88; font-weight:700; font-size:1.2rem;">
+                                    $ {calculateCOP(crypto.usdPrice, crypto.margin)} COP
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
 
-        <a href="#" style="display: inline-block; padding: 0.75rem 2.5rem; font-weight: bold; background: linear-gradient(135deg, #00d4ff, #00ff88); color: #0a1e2e; border-radius: 8px; text-decoration: none; font-size: 1.1rem; box-shadow: 0 0 20px rgba(0,212,255,0.4);">
-            Iniciar un Intercambio
-        </a>
+            <!-- Botón de Acción Directo -->
+            <div style="margin-top:2.5rem;">
+                <p style="font-size:0.9.rem; color:#bdc3c7; margin-bottom:1rem;">* Los valores se actualizan dinámicamente con la tasa base del dólar a ${usdBasePrice} COP.</p>
+                <a href="https://wa.me?text=Hola,%20deseo%20realizar%20un%20intercambio%20en%20Permutalibre" target="_blank" style="display:inline-block; background:linear-gradient(135deg, #00d4ff, #00ff88); color:#0a1e2e; font-weight:bold; padding:1rem 3rem; border-radius:8px; text-decoration:none; font-size:1.2rem; box-shadow:0 4px 15px rgba(0,255,136,0.3); transition:transform 0.2s;">
+                    🚀 Iniciar Operación vía WhatsApp
+                </a>
+            </div>
+        </section>
     </main>
 
-    <!-- Pie de Página -->
-    <footer style="background: #0f3460; text-align: center; padding: 2rem; color: #bdc3c7; border-top: 1px solid rgba(0, 212, 255, 0.2); margin-top: 5rem;">
-        <p>&copy; 2026 Permutalibre. Operaciones seguras en Colombia.</p>
+    <!-- Footer Corporativo -->
+    <footer style="background:#0f3460; text-align:center; padding:3rem; color:#bdc3c7; border-top:1px solid rgba(0, 212, 255, 0.1); margin-top:6rem; font-size:1rem;">
+        <p>&copy; 2026 Permutalibre Colombia. Todos los derechos reservados.</p>
+        <p style="font-size:0.85rem; margin-top:0.5rem; color:#00d4ff;">Desarrollado en Astro con Rendimiento de Carga Ultra Rápido (SEO Grado A)</p>
     </footer>
 
 </body>
