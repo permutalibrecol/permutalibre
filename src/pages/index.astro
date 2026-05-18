@@ -1,5 +1,5 @@
 ---
-// LÓGICA DE SERVIDOR: Conexión oculta de tasas en la nube
+// LÓGICA DE NEGOCIO: Extracción de tasas base oculta en el servidor
 let rawRate = 3950; 
 try {
   const response = await fetch('https://binance.com');
@@ -7,7 +7,7 @@ try {
   if (data.price) rawRate = parseFloat(data.price);
 } catch (e) {}
 
-// Tu margen personalizado del 2.5% ($50.000 por cada $2.000.000)
+// Comisión real del 2.5% ($50.000 COP por cada $2.000.000 COP)
 const feePercent = 2.5;
 const effectiveRate = rawRate - (rawRate * (feePercent / 100));
 ---
@@ -15,94 +15,111 @@ const effectiveRate = rawRate - (rawRate * (feePercent / 100));
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Permutalibre | Permuta de Inmuebles, Cripto y Efectivo RWA</title>
-    <meta name="description" content="Portal oficial de Permutalibre. Permuta directa de inmuebles, liquidación de criptoactivos en efectivo y envíos internacionales a Venezuela y Costa Rica. Seguros, privados y sin P2P.">
+    <title>Permutalibre | Permutas Inmobiliarias, Criptoactivos y Soluciones RWA</title>
+    
+    <!-- SEO de Alta Conversión y Posicionamiento Orgánico -->
+    <meta name="description" content="Portal de alta liquidez patrimonial. Intercambio de criptoactivos por efectivo físico en Colombia, pasarelas de envío directo entre Colombia, Costa Rica y Venezuela, y permutas RWA.">
+    <meta name="keywords" content="permutas colombia, cambiar cripto efectivo bogota, envios dinero venezuela costa rica, usdt bogota, real world assets colombia">
+    
     <link rel="stylesheet" href="https://cloudflare.com">
     <style>
         :root { 
             --brand-yellow: #facc15; 
             --brand-blue: #0f3460; 
-            --brand-dark-bg: #090d16; 
-            --brand-card: #131c2e; 
+            --dark-gradient: linear-gradient(135deg, #060b13 0%, #0f3460 100%);
+            --brand-card: rgba(19, 28, 46, 0.7); 
             --brand-cyan: #00d4ff; 
             --text-light: #f8fafc; 
         }
         * { margin:0; padding:0; box-sizing:border-box; scroll-behavior: smooth; }
-        body { background: var(--brand-dark-bg); color: var(--text-light); font-family: -apple-system, system-ui, sans-serif; line-height: 1.5; }
+        
+        body { 
+            background: var(--dark-gradient); 
+            color: var(--text-light); 
+            font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+            line-height: 1.6;
+            min-height: 100vh;
+        }
         .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
         
-        /* Navbar con tu identidad visual */
-        header { background: var(--brand-blue); border-bottom: 4px solid var(--brand-yellow); padding: 1rem 0; position: sticky; top:0; z-index:100; box-shadow: 0 4px 15px rgba(0,0,0,0.4); }
+        /* Navbar */
+        header { background: rgba(15, 52, 96, 0.95); border-bottom: 4px solid var(--brand-yellow); padding: 1rem 0; position: sticky; top:0; z-index:100; backdrop-filter:blur(12px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         .nav-box { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
         .logo-container { display: flex; align-items: center; gap: 0.8rem; text-decoration: none; }
-        .logo-img { height: 45px; width: auto; border-radius: 4px; object-fit: contain; }
-        .logo-text { font-size: 1.6rem; font-weight: 900; color: var(--brand-yellow); text-shadow: 2px 2px 0px rgba(0,0,0,0.5); }
-        nav { display: flex; gap: 1.2rem; }
-        nav a { color: var(--text-light); text-decoration: none; font-size: 0.95rem; font-weight: bold; padding: 0.5rem; transition: 0.2s; }
+        .logo-img { height: 50px; width: auto; border-radius: 6px; }
+        .logo-text { font-size: 1.8rem; font-weight: 900; color: var(--brand-yellow); text-shadow: 2px 2px 0px rgba(0,0,0,0.6); letter-spacing: 1px; }
+        nav { display: flex; gap: 1.5rem; }
+        nav a { color: var(--text-light); text-decoration: none; font-size: 1rem; font-weight: 700; padding: 0.5rem; transition: 0.3s; }
         nav a:hover { color: var(--brand-yellow); }
 
-        /* Banner Principal / Hero */
-        .hero { padding: 4rem 0 3rem 0; text-align: center; }
-        .hero h1 { font-size: 3rem; font-weight: 900; text-transform: uppercase; line-height: 1.2; margin-bottom: 1rem; color: var(--brand-yellow); text-shadow: 3px 3px 0px var(--brand-blue); }
-        .hero p { font-size: 1.25rem; color: #cbd5e1; max-width: 750px; margin: 0 auto 2.5rem auto; font-weight: 500; }
-        .badge { background: var(--brand-blue); border: 2px solid var(--brand-yellow); color: var(--brand-yellow); padding: 0.5rem 1.2rem; border-radius: 50px; font-size: 0.9rem; font-weight: bold; display: inline-block; margin-bottom: 1.5rem; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        /* Hero */
+        .hero { padding: 6rem 0 4rem 0; text-align: center; }
+        .hero h1 { font-size: 3.5rem; font-weight: 900; text-transform: uppercase; line-height: 1.1; margin-bottom: 1.5rem; color: var(--brand-yellow); text-shadow: 3px 3px 0px rgba(0,0,0,0.5); }
+        .hero p { font-size: 1.4rem; color: #cbd5e1; max-width: 800px; margin: 0 auto 3rem auto; line-height: 1.7; }
+        .badge { background: rgba(250, 204, 21, 0.1); border: 2px solid var(--brand-yellow); color: var(--brand-yellow); padding: 0.6rem 1.5rem; border-radius: 50px; font-size: 0.95rem; font-weight: 800; display: inline-block; margin-bottom: 2rem; box-shadow: 0 4px 15px rgba(250,204,21,0.2); }
 
-        /* Tarjetas de Soluciones */
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 5rem; }
-        .card { background: var(--brand-card); border: 2px solid var(--brand-blue); border-radius: 16px; padding: 2.2rem; box-shadow: 0 10px 25px rgba(0,0,0,0.4); transition: 0.3s; }
-        .card:hover { border-color: var(--brand-yellow); transform: translateY(-4px); }
-        .card i { font-size: 2.8rem; color: var(--brand-yellow); margin-bottom: 1.2rem; text-shadow: 2px 2px 0px rgba(0,0,0,0.3); }
-        .card h3 { font-size: 1.45rem; margin-bottom: 0.6rem; color: var(--brand-yellow); }
-        .card p { color: #94a3b8; font-size: 1rem; line-height: 1.6; }
+        /* Grid */
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; margin-bottom: 6rem; }
+        .card { background: var(--brand-card); border: 2px solid rgba(250, 204, 21, 0.15); border-radius: 20px; padding: 2.5rem; box-shadow: 0 15px 35px rgba(0,0,0,0.4); backdrop-filter: blur(8px); transition: 0.3s ease-in-out; }
+        .card:hover { border-color: var(--brand-yellow); transform: translateY(-5px); }
+        .card i { font-size: 3.2rem; color: var(--brand-yellow); margin-bottom: 1.5rem; }
+        .card h3 { font-size: 1.6rem; margin-bottom: 0.8rem; color: var(--brand-yellow); text-transform: uppercase; font-weight: 800; }
+        .card p { color: #cbd5e1; font-size: 1.05rem; line-height: 1.6; }
 
-        /* Bloque Manifiesto Negocio Directo */
-        .manifesto { background: linear-gradient(135deg, var(--brand-blue) 0%, #090d16 100%); border-left: 6px solid var(--brand-yellow); padding: 2.5rem; border-radius: 12px; margin-bottom: 5rem; box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
-        .manifesto h2 { color: var(--brand-yellow); margin-bottom: 1rem; font-size: 1.8rem; }
-        .manifesto ul { list-style: none; text-align: left; max-width: 650px; margin: 0 auto; }
-        .manifesto li { margin-bottom: 1rem; font-size: 1.1rem; line-height: 1.5; }
-        .manifesto li i { color: #f43f5e; margin-right: 0.6rem; font-size: 1.2rem; }
+        /* Corredor de Envíos Triangular */
+        .corridor-section { background: rgba(15, 52, 96, 0.3); border: 2px solid var(--brand-cyan); border-radius: 20px; padding: 3.5rem 2rem; margin-bottom: 6rem; box-shadow: 0 15px 35px rgba(0,0,0,0.4); }
+        .corridor-header { max-width: 800px; margin: 0 auto; text-align: center; }
+        .corridor-header h2 { color: var(--brand-cyan); font-size: 2.2rem; text-transform: uppercase; font-weight: 900; margin-bottom: 1rem; }
+        .flag-box { display: flex; justify-content: center; gap: 1.5rem; font-size: 2.8rem; margin-bottom: 1.5rem; }
 
-        /* Formulario Inmobiliario Profesional */
-        .form-section { background: var(--brand-card); border: 2px solid var(--brand-blue); border-radius: 20px; padding: 3rem 2rem; text-align: left; max-width: 700px; margin: 0 auto 6rem auto; box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
-        .form-section h2 { text-align: center; color: var(--brand-yellow); margin-bottom: 2rem; font-size: 2rem; text-transform: uppercase; }
-        .form-group { margin-bottom: 1.5rem; }
-        .form-group label { display: block; font-size: 0.95rem; font-weight: bold; margin-bottom: 0.5rem; color: #cbd5e1; }
-        .form-group input, .form-group textarea { width: 100%; padding: 0.9rem; border-radius: 8px; border: 2px solid var(--brand-blue); background: #090d16; color: white; font-size: 1rem; transition: 0.2s; }
-        .form-group input:focus, .form-group textarea:focus { border-color: var(--brand-yellow); outline: none; box-shadow: 0 0 10px rgba(250,204,21,0.2); }
-        .btn-submit { display: block; width: 100%; background: var(--brand-yellow); color: var(--brand-blue); font-weight: 900; text-align: center; padding: 1.1rem; border-radius: 8px; border: none; font-size: 1.2rem; cursor: pointer; text-transform: uppercase; box-shadow: 0 4px 20px rgba(250,204,21,0.4); transition: 0.2s; }
-        .btn-submit:hover { transform: scale(1.02); background: #fff; color: #000; }
+        /* Manifiesto */
+        .manifesto { background: rgba(15, 52, 96, 0.4); border: 2px solid #ea580c; border-left: 8px solid #ea580c; padding: 3rem 2rem; border-radius: 16px; margin-bottom: 6rem; backdrop-filter: blur(10px); }
+        .manifesto h2 { color: #f43f5e; margin-bottom: 1.2rem; font-size: 2.2rem; text-transform: uppercase; font-weight: 900; }
+        .manifesto ul { list-style: none; text-align: left; max-width: 700px; margin: 0 auto; }
+        .manifesto li { margin-bottom: 1.2rem; font-size: 1.15rem; display: flex; align-items: flex-start; gap: 0.8rem; }
+        .manifesto li i { color: #f43f5e; font-size: 1.4rem; margin-top: 0.2rem; }
 
-        /* Botón Flotante de WhatsApp oficial de tu Marca */
-        .whatsapp-float { position: fixed; bottom: 20px; right: 20px; background: #25d366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 30px; box-shadow: 2px 2px 10px rgba(0,0,0,0.3); z-index: 1000; text-decoration: none; transition: 0.2s; }
-        .whatsapp-float:hover { transform: scale(1.1); background: #20ba5a; }
+        /* Formulario Inmobiliario */
+        .form-section { background: var(--brand-card); border: 2px solid var(--brand-yellow); border-radius: 24px; padding: 3.5rem 2.5rem; text-align: left; max-width: 750px; margin: 0 auto 6rem auto; box-shadow: 0 25px 55px rgba(0,0,0,0.6); }
+        .form-section h2 { text-align: center; color: var(--brand-yellow); margin-bottom: 1rem; font-size: 2.2rem; text-transform: uppercase; font-weight: 900; }
+        .form-section p.subtitle { text-align: center; color: #94a3b8; margin-bottom: 2.5rem; font-size: 1.1rem; }
+        .form-group { margin-bottom: 1.8rem; }
+        .form-group label { display: block; font-size: 1rem; font-weight: 700; margin-bottom: 0.6rem; color: #e2e8f0; }
+        .form-group input, .form-group textarea { width: 100%; padding: 1rem; border-radius: 10px; border: 2px solid var(--brand-blue); background: #060b13; color: white; font-size: 1.05rem; }
+        .form-group input:focus, .form-group textarea:focus { border-color: var(--brand-yellow); outline: none; }
+        .btn-submit { display: block; width: 100%; background: var(--brand-yellow); color: var(--brand-blue); font-weight: 900; text-align: center; padding: 1.2rem; border-radius: 10px; border: none; font-size: 1.25rem; cursor: pointer; text-transform: uppercase; box-shadow: 0 6px 25px rgba(250,204,21,0.4); transition: 0.3s; }
+        .btn-submit:hover { background: #ffffff; color: #000000; transform: translateY(-2px); }
 
-        footer { background: #05070f; text-align: center; padding: 3rem 0; color: #64748b; font-size: 0.95rem; border-top: 2px solid var(--brand-blue); }
+        /* WhatsApp */
+        .whatsapp-float { position: fixed; bottom: 25px; right: 25px; background: #25d366; color: white; width: 65px; height: 65px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 35px; box-shadow: 0 8px 25px rgba(37,211,102,0.4); z-index: 1000; text-decoration: none; transition: 0.3s; }
+        .whatsapp-float:hover { transform: scale(1.15); background: #1ebd54; }
+
+        footer { background: #04070d; text-align: center; padding: 4rem 0; color: #64748b; font-size: 1rem; border-top: 3px solid var(--brand-blue); }
 
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.2rem; }
-            nav { justify-content: center; width: 100%; margin-top: 1rem; gap: 0.5rem; }
+            .hero h1 { font-size: 2.3rem; }
+            nav { justify-content: center; width: 100%; margin-top: 1.2rem; gap: 0.8rem; }
             .nav-box { justify-content: center; text-align: center; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Botón Flotante de WhatsApp para Conversiones Instantáneas Móviles -->
-    <a href="https://wa.me" class="whatsapp-float" target="_blank">
+    <a href="https://wa.me." class="whatsapp-float" target="_blank">
         <i class="fa-brands fa-whatsapp"></i>
     </a>
 
     <header>
         <div class="container nav-box">
-            <!-- Espacio Vinculado para tu Logo e Identidad -->
             <a href="#" class="logo-container">
-                <img src="/permutalibre/logo-marca.png" alt="Logo" class="logo-img" onerror="this.style.display='none';" />
+                <img src="/permutalibre/logo-marca.png" alt="" class="logo-img" onerror="this.style.display='none';" />
                 <span class="logo-text">PERMUTALIBRE</span>
             </a>
             <nav>
                 <a href="#soluciones">Soluciones</a>
-                <a href="#manifiesto">Por qué elegirnos</a>
-                <a href="#registro">Registrar Bien</a>
+                <a href="#corredor">Fronteras</a>
+                <a href="#manifiesto">Garantía</a>
+                <a href="#registro">Permutar Inmueble</a>
             </nav>
         </div>
     </header>
@@ -110,62 +127,72 @@ const effectiveRate = rawRate - (rawRate * (feePercent / 100));
     <main class="container">
         
         <section class="hero">
-            <span class="badge"><i class="fa-solid fa-shield-halved"></i> Negociación Patrimonial Blindada</span>
+            <span class="badge"><i class="fa-solid fa-crown"></i> Corredor Cambiario Transnacional & Soluciones RWA</span>
             <h1>No lo vendas, cámbialo</h1>
-            <p>Convertimos tus activos digitales en patrimonio real. Liquidación inmediata en efectivo físico, pasarelas de flujo transnacionales y permutas de inmuebles con intermediación jurídica ante constructoras.</p>
+            <p>Evolucionamos el intercambio financiero internacional. Cambiamos tus criptoactivos por efectivo físico en Colombia, realizamos envíos de remesas directas entre tres naciones aliadas y estructuramos fiducias inmobiliarias de alto impacto.</p>
         </section>
 
         <section id="soluciones" class="services-grid">
             <div class="card">
-                <i class="fa-solid fa-money-bill-wave"></i>
+                <i class="fa-solid fa-money-bill-transfer"></i>
                 <h3>Efectivo Físico Directo</h3>
-                <p>Evita el rastreo bancario y congelamientos del P2P tradicional. Liquidamos tu capital directamente en efectivo con una tasa neta y transparente de <strong>${Math.round(effectiveRate).toLocaleString('es-CO')} COP</strong> por USDT.</p>
+                <p>Protege tu patrimonio de congelamientos arbitrariales del sistema digital. Transaccionamos en efectivo billete a billete bajo una tasa neta blindada de <strong>${Math.round(effectiveRate).toLocaleString('es-CO')} COP</strong> por USDT.</p>
             </div>
             <div class="card">
-                <i class="fa-solid fa-earth-americas"></i>
-                <h3>Pasarelas Costa Rica & Venezuela</h3>
-                <p>Moviliza flujos de dinero de forma privada y directa entre fronteras estratégicas. Diseñado para operaciones comerciales con tasas preferenciales competitivas.</p>
+                <i class="fa-solid fa-building-circle-check"></i>
+                <h3>Bienes Raíces por Cripto (RWA)</h3>
+                <p>La solución definitiva para la falta de liquidez. Estructuramos la compra de activos del mundo real e inmuebles directo con constructoras, canalizando tus capitales cripto de manera 100% legal.</p>
             </div>
             <div class="card">
-                <i class="fa-solid fa-building-shield"></i>
-                <h3>Propiedades por Cripto (RWA)</h3>
-                <p>Intermediación corporativa estructurada ante constructoras. Adquiere bienes raíces de proyectos sobre planos o terminados usando cripto bajo contratos de fiducia legal.</p>
+                <i class="fa-solid fa-shield-halved"></i>
+                <h3>Intermediación Institucional</h3>
+                <p>Mitigamos de raíz el riesgo legal, cambiario y operativo en transacciones patrimoniales de gran volumen a través de procesos confidenciales diseñados a tu medida.</p>
+            </div>
+        </section>
+
+        <!-- Sección del Corredor Triangular de 3 Países Actualizada -->
+        <section id="corredor" class="corridor-section">
+            <div class="corridor-header">
+                <div class="flag-box">🇨🇴 🇨🇷 🇻🇪</div>
+                <h2>Conectividad Total: Colombia, Costa Rica y Venezuela</h2>
+                <p style="color: #cbd5e1; font-size: 1.15rem; line-height: 1.6;">Establecemos un puente financiero directo y seguro para la movilización de recursos. Realizamos <strong>envíos, giros e intercambios de dinero cruzados entre los tres países</strong> sin las trabas abusivas ni los límites del P2P ordinario, asegurando la mejor tasa del mercado internacional.</p>
+                <a href="https://wa.me." target="_blank" style="display:inline-block; margin-top:1rem; color:var(--brand-cyan); text-decoration:none; font-weight:bold; font-size:1.1rem;">Consultar cotización internacional <i class="fa-solid fa-arrow-right"></i></a>
             </div>
         </section>
 
         <section id="manifiesto" class="manifesto">
-            <h2>Por qué somos la evolución del P2P de Binance</h2>
-            <p style="color:#cbd5e1; margin-bottom:1.5rem; font-weight: 500;">El ecosistema P2P se ha vuelto altamente riesgoso debido a fiscalizaciones masivas de la DIAN y fraudes. Nosotros eliminamos el riesgo financiero:</p>
+            <h2>Por qué somos el Antídoto contra Binance P2P</h2>
+            <p style="color:#e2e8f0; margin-bottom:2rem; font-size: 1.1rem; font-weight:500;">El ecosistema digital tradicional expone tus datos y cuentas bancarias. En Permutalibre erradicamos el riesgo sistémico:</p>
             <ul>
-                <li><i class="fa-solid fa-circle-xmark"></i> <strong>Cero estafas de triangulación:</strong> Eliminamos las cuentas de terceros desconocidos que congelan tus fondos.</li>
-                <li><i class="fa-solid fa-circle-xmark"></i> <strong>Sin alertas bancarias automáticas:</strong> La gestión en efectivo físico resguarda tu privacidad patrimonial y fiscal.</li>
-                <li><i class="fa-solid fa-circle-xmark"></i> <strong>Operaciones Patrimoniales de Gran Volumen:</strong> El ecosistema ideal para inversionistas serios que requieren mover capital sin fricciones.</li>
+                <li><i class="fa-solid fa-shield-virus"></i> <span><strong>Cero Estafas de Triangulación:</strong> Al operar de forma física, eliminas depósitos bancarios de desconocidos que puedan congelar tus ahorros.</span></li>
+                <li><i class="fa-solid fa-eye-slash"></i> <span><strong>Máxima Privacidad Fiscal:</strong> Resguardamos tu historial de movimientos bancarios y reportes masivos automáticos innecesarios.</span></li>
+                <li><i class="fa-solid fa-vault"></i> <span><strong>Garantía Confidencial de Volumen:</strong> Diseñado minuciosamente para comerciantes serios, desarrolladores inmobiliarios e inversores patrimoniales.</span></li>
             </ul>
         </section>
 
         <section id="registro" class="form-section">
-            <h2>🏠 Registro de Permuta Inmobiliaria</h2>
-            <p style="color:#94a3b8; text-align:center; margin-bottom:2rem; font-size:1rem;">¿No cuentas con liquidez pero deseas cambiar un bien? Agrégalo a nuestra base privada para cruzar ofertas con inversionistas de capital.</p>
+            <h2>🏠 Portal de Permuta Inmobiliaria Directa</h2>
+            <p class="subtitle">Inserta los datos técnicos de tu activo. Nuestro software cruzará la información internamente con portafolios de inversionistas líquidos de nuestra base privada.</p>
             
             <form action="https://wa.me" method="GET" target="_blank">
                 <div class="form-group">
-                    <label>Tipo de Bien y Ubicación</label>
-                    <input type="text" name="tipo" placeholder="Ej: Apartamento en Cedritos, Bogotá" required />
+                    <label><i class="fa-solid fa-map-location-dot"></i> Tipo de Activo y Ubicación Exacta</label>
+                    <input type="text" name="tipo" placeholder="Ej: Apartamento amoblado en San José, Costa Rica" style="color: white;" required />
                 </div>
                 <div class="form-group">
-                    <label>Valor Comercial Estimado (COP)</label>
-                    <input type="text" name="valor" placeholder="Ej: $450,000,000 COP" required />
+                    <label><i class="fa-solid fa-tags"></i> Valor Comercial Estimado en Pesos o USD</label>
+                    <input type="text" name="valor" placeholder="Ej: $150,000 USD / $600,000,000 COP" style="color: white;" required />
                 </div>
                 <div class="form-group">
-                    <label>¿Qué buscas a cambio en permuta? (USDT, Cripto u otros bienes)</label>
-                    <textarea name="motivo" rows="3" placeholder="Ej: Busco USDT o propiedad de menor valor en el eje cafetero" required></textarea>
+                    <label><i class="fa-solid fa-handshake-angle"></i> ¿Qué buscas recibir a cambio? (Especificar si requieres USDT, Cripto u otros bienes)</label>
+                    <textarea name="motivo" rows="4" placeholder="Ej: Busco cambio directo por USDT líquidos o propiedad raíz comercial bien ubicada en Colombia." style="color: white;" required></textarea>
                 </div>
                 <div class="form-group">
-                    <label>Registro Fotográfico</label>
-                    <input type="text" readonly placeholder="📸 Adjunta las 5 fotografías directo a tu asesor al enviar este formulario" style="border-style:dashed; color:#94a3b8; cursor:not-allowed;" />
+                    <label><i class="fa-solid fa-camera"></i> Ficha Fotográfica</label>
+                    <input type="text" readonly placeholder="📸 Envía tu propuesta y adjunta las 5 fotografías principales directo al asesor de validación" style="border-style:dashed; color:#94a3b8; background:transparent; cursor:not-allowed;" />
                 </div>
                 
-                <button type="submit" class="btn-submit">Enviar Oferta de Permuta</button>
+                <button type="submit" class="btn-submit">Enviar Activo a Mesa de Validación</button>
             </form>
         </section>
 
@@ -173,7 +200,7 @@ const effectiveRate = rawRate - (rawRate * (feePercent / 100));
 
     <footer>
         <div class="container">
-            <p>&copy; 2026 Permutalibre Global S.A.S. Infraestructura de activos del mundo real (RWA) e intermediación financiera.</p>
+            <p>&copy; 2026 Permutalibre Global S.A.S. Infraestructura de activos del mundo real (RWA) e intermediación financiera patrimonial.</p>
         </div>
     </footer>
 
