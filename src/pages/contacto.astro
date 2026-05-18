@@ -1,0 +1,405 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+---
+
+<MainLayout title="Contacto | Permutalibre">
+  <div class="container">
+    <section class="contact-section">
+      <h1>Contáctanos</h1>
+      <p class="subtitle">¿Tienes preguntas? Estamos aquí para ayudarte</p>
+
+      <div class="contact-grid">
+        <div class="card contact-info">
+          <h2>Información de Contacto</h2>
+
+          <div class="info-item">
+            <div class="icon">📧</div>
+            <div>
+              <h4>Email</h4>
+              <a href="mailto:info@permutalibre.com.co">info@permutalibre.com.co</a>
+              <p>Respondemos en máximo 2 horas</p>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="icon">📱</div>
+            <div>
+              <h4>WhatsApp</h4>
+              <a href="https://wa.me/573001234567" target="_blank">+57 (300) 123-4567</a>
+              <p>Disponible 24/7</p>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="icon">📍</div>
+            <div>
+              <h4>Ubicación</h4>
+              <p>Bogotá, Colombia</p>
+              <p>Zona horaria: GMT-5</p>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="icon">⏱️</div>
+            <div>
+              <h4>Horario de Atención</h4>
+              <p>Lunes a Viernes: 8:00 AM - 6:00 PM</p>
+              <p>Sábados: 9:00 AM - 2:00 PM</p>
+            </div>
+          </div>
+
+          <div class="social-links">
+            <a href="#" class="social-btn">Twitter</a>
+            <a href="#" class="social-btn">Instagram</a>
+            <a href="#" class="social-btn">Facebook</a>
+            <a href="#" class="social-btn">LinkedIn</a>
+          </div>
+        </div>
+
+        <div class="card contact-form-wrapper">
+          <h2>Envíanos un Mensaje</h2>
+          <form id="contactForm" class="contact-form">
+            <div class="form-group">
+              <label for="name">Nombre Completo *</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                required
+                placeholder="Tu nombre"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email *</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                placeholder="tu@email.com"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Teléfono (Opcional)</label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                placeholder="+57 (300) 123-4567"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="subject">Asunto *</label>
+              <select id="subject" name="subject" required>
+                <option value="">Selecciona un asunto</option>
+                <option value="soporte">Soporte Técnico</option>
+                <option value="transaccion">Problema con Transacción</option>
+                <option value="cuenta">Problema con Cuenta</option>
+                <option value="sugerencia">Sugerencia o Comentario</option>
+                <option value="otro">Otro</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="message">Mensaje *</label>
+              <textarea
+                id="message"
+                name="message"
+                required
+                placeholder="Cuéntanos qué necesitas..."
+                rows="5"
+              ></textarea>
+            </div>
+
+            <div class="form-group checkbox">
+              <input type="checkbox" id="terms" name="terms" required />
+              <label for="terms">Acepto los términos y condiciones</label>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Enviar Mensaje</button>
+            <div id="formMessage" class="form-message hidden"></div>
+          </form>
+        </div>
+      </div>
+
+      <div class="faq-section card">
+        <h2>Preguntas Frecuentes</h2>
+        <div class="faq-grid">
+          <div class="faq-item">
+            <h4>¿Cuál es el monto mínimo para intercambiar?</h4>
+            <p>El monto mínimo es de $10.000 pesos colombianos (COP).</p>
+          </div>
+          <div class="faq-item">
+            <h4>¿Cuánto tiempo demora una transacción?</h4>
+            <p>Las transacciones se procesan en máximo 15 minutos en horario de atención.</p>
+          </div>
+          <div class="faq-item">
+            <h4>¿Qué métodos de pago aceptan?</h4>
+            <p>Aceptamos transferencia bancaria, tarjeta de crédito/débito y billetera digital.</p>
+          </div>
+          <div class="faq-item">
+            <h4>¿Es seguro hacer transacciones aquí?</h4>
+            <p>Sí, usamos encriptación SSL 256-bit y seguimos regulaciones colombianas.</p>
+          </div>
+          <div class="faq-item">
+            <h4>¿Qué debo hacer si tengo un problema?</h4>
+            <p>Contáctanos vía email o WhatsApp y nuestro equipo te ayudará de inmediato.</p>
+          </div>
+          <div class="faq-item">
+            <h4>¿Hay límite de transacciones diarias?</h4>
+            <p>No, puedes hacer cuantas transacciones necesites dentro de nuestro horario.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</MainLayout>
+
+<script>
+  const contactForm = document.getElementById('contactForm');
+  const formMessage = document.getElementById('formMessage');
+
+  if (contactForm) {
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Recolectar datos del formulario
+      const formData = new FormData(contactForm);
+      const data = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        subject: formData.get('subject'),
+        message: formData.get('message'),
+        timestamp: new Date().toISOString(),
+      };
+
+      // Simular envío (en producción, esto iría a un servicio backend)
+      console.log('Formulario enviado:', data);
+
+      // Mostrar mensaje de éxito
+      if (formMessage) {
+        formMessage.textContent =
+          '✅ ¡Mensaje enviado exitosamente! Nos pondremos en contacto pronto.';
+        formMessage.classList.remove('hidden');
+        formMessage.classList.add('success');
+      }
+
+      // Limpiar formulario
+      contactForm.reset();
+
+      // Ocultar mensaje después de 5 segundos
+      setTimeout(() => {
+        if (formMessage) {
+          formMessage.classList.add('hidden');
+        }
+      }, 5000);
+    });
+  }
+</script>
+
+<style>
+  .contact-section {
+    padding: 2rem 0;
+  }
+
+  .contact-section h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin-bottom: 3rem;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .info-item {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .info-item:last-child {
+    border-bottom: none;
+  }
+
+  .icon {
+    font-size: 2rem;
+    min-width: 60px;
+    text-align: center;
+  }
+
+  .info-item h4 {
+    margin-top: 0;
+    margin-bottom: 0.25rem;
+  }
+
+  .info-item p {
+    margin: 0.25rem 0;
+    color: var(--text-secondary);
+  }
+
+  .info-item a {
+    display: inline-block;
+    font-weight: 600;
+  }
+
+  .social-links {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .social-btn {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: var(--primary);
+    color: white;
+    text-decoration: none;
+    border-radius: 0.25rem;
+    transition: all var(--transition-fast);
+  }
+
+  .social-btn:hover {
+    background: var(--accent);
+    color: var(--primary);
+    transform: translateY(-2px);
+  }
+
+  .contact-form-wrapper h2 {
+    margin-top: 0;
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-group label {
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 0.75rem;
+    border: 2px solid var(--border);
+    border-radius: 0.5rem;
+    font-family: inherit;
+    font-size: 1rem;
+    transition: border-color var(--transition-fast);
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--accent);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+  }
+
+  .form-group.checkbox {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .form-group.checkbox input {
+    width: auto;
+  }
+
+  .form-group.checkbox label {
+    margin: 0;
+  }
+
+  .form-message {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    font-weight: 600;
+  }
+
+  .form-message.hidden {
+    display: none;
+  }
+
+  .form-message.success {
+    background: rgba(0, 255, 136, 0.2);
+    color: #009d3a;
+    border: 1px solid #009d3a;
+  }
+
+  .faq-section {
+    margin-top: 3rem;
+  }
+
+  .faq-section h2 {
+    margin-top: 0;
+  }
+
+  .faq-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .faq-item h4 {
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .faq-item p {
+    margin: 0;
+    color: var(--text-secondary);
+  }
+
+  @media (max-width: 768px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .contact-section h1 {
+      font-size: 2rem;
+    }
+
+    .faq-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .social-links {
+      flex-direction: column;
+    }
+
+    .social-btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>
