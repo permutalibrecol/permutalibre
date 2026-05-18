@@ -1,94 +1,116 @@
 ---
-// Configuración de Servidor en Astro: Márgenes de ganancia y valores base en Colombia
-const usdBasePrice = 4250; // Tasa promedio del dólar en COP
+// LÓGICA DE SERVIDOR: Conexión dinámica a la API pública de Binance
+let usdtToCop = 3800; // Valor de respaldo por si la API falla temporalmente
 
-const cryptos = [
-  { name: 'Bitcoin', ticker: 'BTC', usdPrice: 42500, margin: 2.5, icon: '₿' },
-  { name: 'Ethereum', ticker: 'ETH', usdPrice: 2200, margin: 2.0, icon: 'Ξ' },
-  { name: 'Tether', ticker: 'USDT', usdPrice: 1.0, margin: 1.5, icon: '₮' },
-  { name: 'Solana', ticker: 'SOL', usdPrice: 350, margin: 2.2, icon: '◎' }
-];
+try {
+  const response = await fetch('https://binance.com');
+  const data = await response.json();
+  if (data.price) {
+    usdtToCop = parseFloat(data.price);
+  }
+} catch (error) {
+  console.error("Error consultando la API de Binance, usando precio base.", error);
+}
 
-// Cálculo de tarifas en pesos colombianos usando lógica matemática automatizada
-const calculateCOP = (usdPrice, margin) => {
-  const baseValue = usdPrice * usdBasePrice;
-  const priceWithMargin = baseValue - (baseValue * (margin / 100)); // Precio de compra al usuario
-  return Math.round(priceWithMargin).toLocaleString('es-CO');
-};
+// Tu margen personalizado: Ganar $50,000 por cada $2,000,000 cambiados (Equivale al 2.5%)
+const profitMarginPercent = 2.5; 
+const clientBuyPrice = usdtToCop - (usdtToCop * (profitMarginPercent / 100));
+
+// Formateadores de moneda colombiana
+const formatCOP = (num) => Math.round(num).toLocaleString('es-CO');
 ---
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Permutalibre | Intercambio Seguro de Criptomonedas en Colombia</title>
-    <meta name="description" content="Cambia tus criptomonedas (BTC, ETH, USDT) por pesos colombianos de forma rápida y segura. Tarifas transparentes sin intermediarios.">
+    <title>Permutalibre | Cambia Cripto por Pesos Colombianos</title>
+    
+    <!-- SEO Meta Tags para atraer tráfico en Colombia -->
+    <meta name="description" content="Intercambia USDT y criptomonedas por pesos colombianos de forma rápida y segura. Liquidación automatizada bajo tasas reales de Binance.">
+    <meta name="keywords" content="cambiar usdt colombia, criptomonedas a pesos colombianos, binance cop p2p, permutalibre">
 </head>
-<body style="margin:0; font-family:-apple-system, BlinkMacSystemFont, sans-serif; background:#0a1e2e; color:#ecf0f1; min-height:100vh;">
+<body style="margin:0; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background:#0f172a; color:#f8fafc; min-height:100vh;">
 
-    <!-- Encabezado de la Plataforma -->
-    <header style="background:#16213e; border-bottom:2px solid #00d4ff; padding:1.2rem 2rem; display:flex; justify-content:space-between; align-items:center; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
-        <div style="font-size:1.6rem; font-weight:800; color:#00d4ff; letter-spacing:1px;">⚡ PERMUTALIBRE</div>
-        <nav style="display:flex; gap:2rem; font-weight:600;">
-            <a href="#" style="color:#ecf0f1; text-decoration:none; hover:color:#00d4ff;">Inicio</a>
-            <a href="#calculadora" style="color:#ecf0f1; text-decoration:none;">Calculadora</a>
-            <a href="https://wa.me" target="_blank" style="color:#00ff88; text-decoration:none;">Soporte WhatsApp</a>
-        </nav>
+    <!-- Barra de Navegación Adaptable -->
+    <header style="background:#1e293b; border-bottom:3px solid #facc15; padding:1rem; box-shadow:0 4px 10px rgba(0,0,0,0.2);">
+        <div style="max-width:1100px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
+            <div style="font-size:1.4rem; font-weight:900; color:#facc15; letter-spacing:0.5px;">⚡ PERMUTALIBRE</div>
+            <nav style="display:flex; gap:1.2rem; font-weight:600; font-size:0.95rem;">
+                <a href="#calculadora" style="color:#f8fafc; text-decoration:none;">Calculadora</a>
+                <a href="https://wa.me" target="_blank" style="color:#4ade80; text-decoration:none;">WhatsApp Vivo</a>
+            </nav>
+        </div>
     </header>
 
-    <!-- Héroe Principal (Optimizado para SEO con palabras clave) -->
-    <main style="max-width:1100px; margin:0 auto; padding:4rem 1.5rem; text-align:center;">
-        <h1 style="font-size:3.8rem; font-weight:800; background:linear-gradient(135deg, #00d4ff, #00ff88); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:1.5rem; line-height:1.2;">
-            Cambia tus Criptomonedas por Pesos Colombianos
+    <!-- Contenedor Principal -->
+    <main style="max-width:1100px; margin:0 auto; padding:2.5rem 1rem; text-align:center;">
+        
+        <!-- Eslogan con colores corporativos de tu marca (Amarillo/Azul) -->
+        <h1 style="font-size:2.5rem; font-weight:800; color:#facc15; line-height:1.2; margin-bottom:1rem; text-transform:uppercase;">
+            No lo vendas, cámbialo
         </h1>
-        <p style="color:#bdc3c7; font-size:1.3rem; max-width:700px; margin:0 auto 3.5rem auto; line-height:1.6;">
-            La alternativa profesional a Google Sites. Retiros directos a cuentas bancarias en Colombia con la menor comisión del mercado financiero cripto.
+        <p style="color:#94a3b8; font-size:1.1rem; max-width:650px; margin:0 auto 3rem auto; line-height:1.5;">
+            Tu cotización transparente con la tasa oficial de <strong>Binance Spot</strong> en tiempo real. Retiros directos a cuentas en Colombia sin bloqueos de terceros.
         </p>
 
-        <!-- Bloque de la Calculadora e Intercambio Real -->
-        <section id="calculadora" style="background:#16213e; border:1px solid rgba(0, 212, 255, 0.2); border-radius:16px; padding:2.5rem; max-width:850px; margin:0 auto; box-shadow:0 0 40px rgba(0,212,255,0.15);">
-            <h2 style="color:#00d4ff; margin-bottom:2rem; font-size:1.8rem;">📊 Tabla de Liquidación de Activos (COP)</h2>
+        <!-- Bloque de la Calculadora Reactiva Móvil -->
+        <section id="calculadora" style="background:#1e293b; border:2px solid #334155; border-radius:16px; padding:2rem 1.5rem; max-width:550px; margin:0 auto; box-shadow:0 10px 25px rgba(0,0,0,0.3);">
+            <h2 style="color:#facc15; font-size:1.4rem; margin-top:0; margin-bottom:1.5rem;">📱 Conversor Automatizado USDT / COP</h2>
             
-            <div style="overflow-x:auto;">
-                <table style="width:100%; border-collapse:collapse; text-align:left; font-size:1.1rem;">
-                    <thead>
-                        <tr style="background:rgba(0, 212, 255, 0.1); color:#00d4ff; border-bottom:2px solid rgba(0, 212, 255, 0.3);">
-                            <th style="padding:1.2rem;">Token</th>
-                            <th style="padding:1.2rem;">Margen Red</th>
-                            <th style="padding:1.2rem; text-align:right;">Te Pagamos (Por Unidad)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {cryptos.map((crypto) => (
-                            <tr style="border-bottom:1px solid rgba(236, 240, 241, 0.08); transition: background 0.3s;">
-                                <td style="padding:1.2rem; font-weight:bold; display:flex; align-items:center; gap:0.5rem;">
-                                    <span style="color:#00ff88; font-size:1.4rem;">{crypto.icon}</span> 
-                                    {crypto.name} ({crypto.ticker})
-                                </td>
-                                <td style="padding:1.2rem; color:#bdc3c7;">-{crypto.margin}%</td>
-                                <td style="padding:1.2rem; text-align:right; color:#00ff88; font-weight:700; font-size:1.2rem;">
-                                    $ {calculateCOP(crypto.usdPrice, crypto.margin)} COP
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+            <!-- Cuadro de Tasas en Vivo -->
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:2rem; background:#0f172a; padding:1rem; border-radius:10px; border:1px solid #334155;">
+                <div>
+                    <span style="font-size:0.8rem; color:#94a3b8; display:block;">Tasa Binance</span>
+                    <strong style="color:#38bdf8; font-size:1.1rem;">${usdtToCop.toLocaleString('es-CO')} COP</strong>
+                </div>
+                <div>
+                    <span style="font-size:0.8rem; color:#94a3b8; display:block;">Tasa de Cambio Neto</span>
+                    <strong style="color:#4ade80; font-size:1.1rem;">${formatCOP(clientBuyPrice)} COP</strong>
+                </div>
             </div>
 
-            <!-- Botón de Acción Directo -->
-            <div style="margin-top:2.5rem;">
-                <p style="font-size:0.9.rem; color:#bdc3c7; margin-bottom:1rem;">* Los valores se actualizan dinámicamente con la tasa base del dólar a ${usdBasePrice} COP.</p>
-                <a href="https://wa.me?text=Hola,%20deseo%20realizar%20un%20intercambio%20en%20Permutalibre" target="_blank" style="display:inline-block; background:linear-gradient(135deg, #00d4ff, #00ff88); color:#0a1e2e; font-weight:bold; padding:1rem 3rem; border-radius:8px; text-decoration:none; font-size:1.2rem; box-shadow:0 4px 15px rgba(0,255,136,0.3); transition:transform 0.2s;">
-                    🚀 Iniciar Operación vía WhatsApp
-                </a>
+            <!-- Interfaz Interactiva Local (Mobile-First) -->
+            <div style="text-align:left; margin-bottom:1.5rem;">
+                <label style="display:block; font-size:0.9rem; font-weight:600; margin-bottom:0.5rem; color:#cbd5e1;">Cantidad de USDT a entregar:</label>
+                <input type="number" id="usdtInput" value="500" placeholder="Ej: 500" style="width:100%; padding:0.8rem; border-radius:8px; border:2px solid #475569; background:#0f172a; color:#fff; font-size:1.1rem; font-weight:bold; box-sizing:border-box;" />
             </div>
+
+            <div style="text-align:left; margin-bottom:2rem; background:#0f172a; padding:1rem; border-radius:8px; border-left:4px solid #4ade80;">
+                <span style="font-size:0.85rem; color:#94a3b8; display:block;">Recibes en tu Banco:</span>
+                <span id="copResult" style="font-size:1.6rem; font-weight:800; color:#4ade80;">Calculando...</span>
+            </div>
+
+            <!-- Botón Transaccional -->
+            <a id="whatsappBtn" href="#" target="_blank" style="display:block; background:#4ade80; color:#0f172a; font-weight:bold; text-align:center; padding:1rem; border-radius:8px; text-decoration:none; font-size:1.1rem; box-shadow:0 4px 12px rgba(74,222,128,0.3); transition:transform 0.2s;">
+                💸 Solicitar Cambio por WhatsApp
+            </a>
         </section>
     </main>
 
-    <!-- Footer Corporativo -->
-    <footer style="background:#0f3460; text-align:center; padding:3rem; color:#bdc3c7; border-top:1px solid rgba(0, 212, 255, 0.1); margin-top:6rem; font-size:1rem;">
-        <p>&copy; 2026 Permutalibre Colombia. Todos los derechos reservados.</p>
-        <p style="font-size:0.85rem; margin-top:0.5rem; color:#00d4ff;">Desarrollado en Astro con Rendimiento de Carga Ultra Rápido (SEO Grado A)</p>
-    </footer>
+    <!-- Script de Cliente para Cálculos Inmediatos en Celulares sin recargar página -->
+    <script define:vars={{ clientBuyPrice }}>
+        const usdtInput = document.getElementById('usdtInput');
+        const copResult = document.getElementById('copResult');
+        const whatsappBtn = document.getElementById('whatsappBtn');
 
+        function updateValues() {
+            const usdtAmount = parseFloat(usdtInput.value) || 0;
+            const copTotal = usdtAmount * clientBuyPrice;
+            
+            // Renderizado en pantalla con formato monetario colombiano
+            copResult.textContent = '$ ' + Math.round(copTotal).toLocaleString('es-CO') + ' COP';
+            
+            // Actualización del mensaje personalizado de WhatsApp
+            const message = `Hola Permutalibre, deseo cambiar ${usdtAmount} USDT por un valor estimado de $${Math.round(copTotal).toLocaleString('es-CO')} COP bajo las tasas actuales.`;
+            whatsappBtn.href = `https://wa.me?text=${encodeURIComponent(message)}`;
+        }
+
+        usdtInput.addEventListener('input', updateValues);
+        updateValues(); // Ejecución inicial de arranque
+    </script>
+
+    <footer style="background:#1e293b; text-align:center; padding:2rem; color:#94a3b8; font-size:0.9rem; border-top:1px solid #334155; margin-top:5rem;">
+        <p>&copy; 2026 Permutalibre. Tasas dinámicas con tecnología de infraestructura digital optimizada.</p>
+    </footer>
 </body>
 </html>
