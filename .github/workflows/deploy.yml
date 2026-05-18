@@ -1,23 +1,62 @@
-name: Desplegar Permutalibre
+name: Generar Estructura y Desplegar
 on:
   push:
     branches: ["main", "master"]
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
 jobs:
-  build:
+  build-and-setup:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: withastro/action@v3
+
+      - name: Generar archivos del proyecto
+        run: |
+          mkdir -p src/pages src/layouts src/styles src/utils
+          
+          cat > package.json << 'EOF'
+          {
+            "name": "permutalibre",
+            "type": "module",
+            "dependencies": {
+              "astro": "^4.2.0"
+            }
+          }
+          EOF
+
+          cat > astro.config.mjs << 'EOF'
+          import { defineConfig } from 'astro/config';
+          export default defineConfig({
+            site: 'https://github.io',
+            base: '/permutalibre',
+            output: 'static'
+          });
+          EOF
+
+          cat > src/pages/index.astro << 'EOF'
+          ---
+          ---
+          <html lang="es">
+            <head>
+              <title>Permutalibre</title>
+            </head>
+            <body style="background:#0a1e2e; color:white; font-family:sans-serif; text-align:center; padding:50px;">
+              <h1>⚡ Permutalibre</h1>
+              <p>Plataforma para intercambiar criptomonedas por pesos colombianos.</p>
+            </body>
+          </html>
+          EOF
+
+      - name: Compilar con Astro
+        uses: withastro/action@v3
 
   deploy:
-    needs: build
+    needs: build-and-setup
     runs-on: ubuntu-latest
     environment:
       name: github-pages
