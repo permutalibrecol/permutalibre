@@ -1,0 +1,7 @@
+{
+  "name": "permutalibre",
+  "type": "module",
+  "dependencies": {
+    "astro": "^4.2.0"
+  }
+}
