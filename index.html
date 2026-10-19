@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Permutalibre | Permutas Inmobiliarias, Criptoactivos y Soluciones RWA</title>
+    
+    <!-- SEO de Alta Conversión y Posicionamiento -->
+    <meta name="description" content="Portal oficial de Permutalibre. Intercambio seguro de criptoactivos por efectivo físico en Colombia, pasarelas transnacionales y permutas RWA. Cero P2P, máxima privacidad patrimonial.">
+    <meta name="keywords" content="permutas colombia, cambiar cripto efectivo bogota chia, envios dinero venezuela costa rica, usdt bogota, real world assets colombia">
+    
+    <!-- Favicon e Identidad Visual -->
+    <link rel="icon" type="image/png" href="logo.png">
+    
+    <!-- Tailwind CSS v4 -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- FontAwesome para Iconografía -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --brand-yellow: #facc15;
+            --brand-blue: #0f3460;
+            --brand-dark-bg: #060b13;
+            --brand-card: rgba(19, 28, 46, 0.9);
+            --dark-gradient: linear-gradient(135deg, #060b13 0%, #0f3460 100%);
+            --brand-cyan: #00d4ff;
+            --text-light: #f8fafc;
+        }
+        body {
+            background: var(--brand-dark-bg);
+            color: var(--text-light);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            overflow-x: hidden;
+        }
+        .hero-bg {
+            background: linear-gradient(rgba(6, 11, 19, 0.85), rgba(15, 52, 96, 0.85)), url('hero-bg.jpg') center/cover no-repeat;
+        }
+        .card-custom {
+            background: var(--brand-card);
+            backdrop-filter: blur(12px);
+            border: 2px solid rgba(250, 204, 21, 0.15);
+            transition: all 0.3s ease-in-out;
+        }
+        .card-custom:hover {
+            border-color: var(--brand-yellow);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col justify-between">
+
+    <!-- MOTOR DE CÁLCULO DE TASAS CON GANANCIA INCLUIDA -->
+    <script>
+        const baseRates = {
+            cop: { raw: 3950, fee: 2.5, symbol: 'COP', name: 'Colombia (Efectivo)' },
+            crc: { raw: 520, fee: 2.5, symbol: 'CRC', name: 'Costa Rica' },
+            ves: { raw: 42.5, fee: 3.0, symbol: 'VES', name: 'Venezuela' }
+        };
+
+        function getEffectiveRate(currency) {
+            const item = baseRates[currency];
+            if (!item) return 0;
+            const net = item.raw - (item.raw * (item.fee / 100));
+            return Math.round(net * 100) / 100;
+        }
+    </script>
+
+    <!-- BOTÓN FLOTANTE DE WHATSAPP -->
+    <a href="https://wa.me/573233936850?text=Hola%20Permutalibre,%20deseo%20realizar%20una%20operación%20patrimonial" class="fixed bottom-6 right-6 bg-[#25d366] text-white w-14 h-14 sm:w-16 sm:h-16 rounded-full flex justify-center items-center text-3xl shadow-2xl hover:scale-110 transition-all z-50 focus:ring-4 focus:ring-green-400" target="_blank" aria-label="WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- HEADER -->
+    <header class="bg-[#0f3460]/95 backdrop-blur-md border-b-4 border-yellow-400 sticky top-0 z-40 shadow-2xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <a href="#" class="flex items-center gap-3 text-decoration-none group">
+                <img src="logo.png" alt="Logo Permutalibre" class="h-12 w-auto rounded-md shadow-md object-contain group-hover:scale-105 transition-transform" onerror="this.src='https://placehold.co/120x50/0f3460/facc15?text=PL';" />
+                <span class="text-2xl sm:text-3xl font-black text-yellow-400 tracking-wider drop-shadow-md">PERMUTALIBRE</span>
+            </a>
+            <nav class="flex flex-wrap justify-center gap-4 sm:gap-6 text-sm sm:text-base font-bold text-slate-100">
+                <a href="#inicio" class="hover:text-yellow-400 transition-colors">Inicio</a>
+                <a href="#nosotros" class="hover:text-yellow-400 transition-colors">Nosotros</a>
+                <a href="#soluciones" class="hover:text-yellow-400 transition-colors">Soluciones</a>
+                <a href="#tarifa" class="hover:text-yellow-400 transition-colors">Tarifas</a>
+                <a href="#comprar-tarjeta" class="hover:text-yellow-400 transition-colors">Comprar Cripto</a>
+                <a href="#registro" class="hover:text-yellow-400 transition-colors">Permutar</a>
+                <a href="#legal" class="hover:text-yellow-400 transition-colors">Legal & Habeas Data</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="flex-grow">
+        <!-- HERO SECTION -->
+        <section id="inicio" class="hero-bg py-20 sm:py-28 px-4 text-center border-b border-slate-800 relative">
+            <div class="max-w-5xl mx-auto space-y-6 relative z-10">
+                <div class="inline-flex items-center gap-2 bg-yellow-400/10 border-2 border-yellow-400 text-yellow-400 px-4 py-2 rounded-full text-xs sm:text-sm font-extrabold shadow-lg">
+                    <i class="fa-solid fa-shield-halved"></i> Negociación Patrimonial Blindada & RWA
+                </div>
+                <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black uppercase text-yellow-400 tracking-tight drop-shadow-[0_5px_5px_rgba(0,0,0,0.8)]">
+                    No lo vendas, cámbialo
+                </h1>
+                <p class="text-lg sm:text-xl text-slate-200 max-w-3xl mx-auto font-medium leading-relaxed">
+                    ¡No necesitas Nequi, Daviplata, BRE-B ni Transfiya! Retira tu efectivo ahora de forma rápida y sencilla en Bogotá y Chía.
+                </p>
+                <div class="pt-4 flex flex-wrap justify-center gap-4">
+                    <a href="#registro" class="bg-yellow-400 text-slate-900 font-black px-8 py-4 rounded-xl text-lg uppercase shadow-xl hover:bg-white hover:scale-105 transition-all">
+                        Registrar Bien o Activo
+                    </a>
+                    <a href="#tarifa" class="bg-blue-600 text-white font-bold px-8 py-4 rounded-xl text-lg uppercase shadow-xl hover:bg-blue-500 hover:scale-105 transition-all border border-blue-400">
+                        Ver Tarifas del Día
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN NOSOTROS -->
+        <section id="nosotros" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 space-y-16">
+            <div class="text-center max-w-3xl mx-auto space-y-4">
+                <span class="text-yellow-400 font-extrabold tracking-widest uppercase text-xs">Sobre Nosotros</span>
+                <h2 class="text-3xl sm:text-4xl font-black text-yellow-400 uppercase">Líderes en Intercambio y Liquidez</h2>
+                <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
+                    En PermutaLibre somos líderes en la prestación de servicios de intercambio de criptomonedas por efectivo en Colombia, con operaciones seguras, rápidas y confiables en <strong>Bogotá y Chía</strong>. Nuestro compromiso es acercar el mundo digital al efectivo cotidiano, eliminando las barreras tradicionales para aquellas personas que no tienen una cuenta bancaria o billetera digital.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="card-custom p-8 rounded-2xl space-y-4">
+                    <div class="text-yellow-400 text-3xl"><i class="fa-solid fa-bullseye"></i></div>
+                    <h3 class="text-2xl font-bold text-yellow-400 uppercase">Misión</h3>
+                    <p class="text-slate-300 leading-relaxed">
+                        Facilitar a todos el intercambio seguro, rápido y confiable de criptomonedas por efectivo, democratizando el acceso a la economía digital y contribuyendo a la inclusión financiera.
+                    </p>
+                </div>
+                <div class="card-custom p-8 rounded-2xl space-y-4">
+                    <div class="text-yellow-400 text-3xl"><i class="fa-solid fa-eye"></i></div>
+                    <h3 class="text-2xl font-bold text-yellow-400 uppercase">Visión</h3>
+                    <p class="text-slate-300 leading-relaxed">
+                        Ser la plataforma de intercambio de criptomonedas por efectivo preferida en Colombia, reconocida por nuestra innovación, confianza y compromiso con la seguridad y satisfacción de nuestros clientes.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Valores -->
+            <div class="space-y-6">
+                <h3 class="text-2xl font-black text-center text-yellow-400 uppercase">Nuestros Valores Corporativos</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                    <div class="card-custom p-6 rounded-xl text-center space-y-2">
+                        <i class="fa-solid fa-shield-halved text-yellow-400 text-2xl"></i>
+                        <h4 class="font-bold text-lg text-white">Seguridad</h4>
+                        <p class="text-xs text-slate-400">Protección total en cada operación.</p>
+                    </div>
+                    <div class="card-custom p-6 rounded-xl text-center space-y-2">
+                        <i class="fa-solid fa-eye text-yellow-400 text-2xl"></i>
+                        <h4 class="font-bold text-lg text-white">Transparencia</h4>
+                        <p class="text-xs text-slate-400">Claridad absoluta en tarifas y procesos.</p>
+                    </div>
+                    <div class="card-custom p-6 rounded-xl text-center space-y-2">
+                        <i class="fa-solid fa-handshake text-yellow-400 text-2xl"></i>
+                        <h4 class="font-bold text-lg text-white">Confianza</h4>
+                        <p class="text-xs text-slate-400">Relaciones sólidas y profesionales.</p>
+                    </div>
+                    <div class="card-custom p-6 rounded-xl text-center space-y-2">
+                        <i class="fa-solid fa-lightbulb text-yellow-400 text-2xl"></i>
+                        <h4 class="font-bold text-lg text-white">Innovación</h4>
+                        <p class="text-xs text-slate-400">Adaptación constante al mercado.</p>
+                    </div>
+                    <div class="card-custom p-6 rounded-xl text-center space-y-2">
+                        <i class="fa-solid fa-headset text-yellow-400 text-2xl"></i>
+                        <h4 class="font-bold text-lg text-white">Servicio</h4>
+                        <p class="text-xs text-slate-400">Atención rápida y personalizada.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROCESO DE 3 PASOS -->
+        <section id="tarifa" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-slate-800">
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                <span class="text-yellow-400 font-extrabold tracking-widest uppercase text-xs">Proceso Transparente</span>
+                <h2 class="text-3xl sm:text-4xl font-black text-yellow-400 uppercase">¿Cómo Funciona el Intercambio?</h2>
+                <p class="text-slate-400 text-base sm:text-lg">Tres pasos simples y seguros para liquidar tu capital.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="card-custom p-8 rounded-2xl relative">
+                    <div class="absolute -top-5 left-8 bg-yellow-400 text-slate-900 font-black text-xl w-10 h-10 rounded-full flex items-center justify-center shadow-lg">1</div>
+                    <div class="text-yellow-400 text-4xl mb-4 mt-2"><i class="fa-solid fa-calculator"></i></div>
+                    <h3 class="text-xl font-bold text-yellow-400 uppercase mb-3">Consulta la tarifa aquí</h3>
+                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                        Revisa nuestra tarifa neta actual. El monto estándar por transacción en efectivo es de <strong>$2.000.000 COP</strong>.
+                    </p>
+                    <div class="mt-4 p-3 bg-slate-900/80 rounded-lg border border-yellow-400/30 text-xs font-mono text-yellow-300">
+                        Tasa estimada USDT/COP: <span id="tasa-cop-display">Calculando...</span>
+                    </div>
+                </div>
+
+                <div class="card-custom p-8 rounded-2xl relative">
+                    <div class="absolute -top-5 left-8 bg-yellow-400 text-slate-900 font-black text-xl w-10 h-10 rounded-full flex items-center justify-center shadow-lg">2</div>
+                    <div class="text-yellow-400 text-4xl mb-4 mt-2"><i class="fa-solid fa-handshake"></i></div>
+                    <h3 class="text-xl font-bold text-yellow-400 uppercase mb-3">Contáctanos y acuerda</h3>
+                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                        Comunícate directamente con nuestro equipo de asesores para pactar el intercambio en Bogotá o Chía.
+                    </p>
+                </div>
+
+                <div class="card-custom p-8 rounded-2xl relative">
+                    <div class="absolute -top-5 left-8 bg-yellow-400 text-slate-900 font-black text-xl w-10 h-10 rounded-full flex items-center justify-center shadow-lg">3</div>
+                    <div class="text-yellow-400 text-4xl mb-4 mt-2"><i class="fa-solid fa-money-bill-transfer"></i></div>
+                    <h3 class="text-xl font-bold text-yellow-400 uppercase mb-3">Envía y recibe efectivo</h3>
+                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                        Transfiere a través de QR o red segura (BSC). Tras la confirmación en blockchain, recibe tu efectivo al instante.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- COMPRA DE CRIPTO CON TARJETA (MOONPAY PARTNERS) -->
+        <section id="comprar-tarjeta" class="bg-[#090d16] py-20 border-y border-slate-800 px-4">
+            <div class="max-w-4xl mx-auto card-custom p-8 sm:p-12 rounded-3xl border-cyan-500/40 text-center space-y-6">
+                <div class="inline-flex p-3 bg-cyan-500/10 text-cyan-400 rounded-2xl text-3xl"><i class="fa-solid fa-credit-card"></i></div>
+                <h2 class="text-2xl sm:text-3xl font-black text-cyan-400 uppercase">Compra Cripto con Tarjeta de Crédito</h2>
+                <p class="text-slate-300 text-base max-w-2xl mx-auto">
+                    Adquiere USDT, BTC o ETH de forma inmediata mediante nuestro enlace de socio oficial en <strong>MoonPay Partners</strong> utilizando tarjeta Visa o Mastercard.
+                </p>
+                <div>
+                    <a href="https://www.moonpay.com/partners" target="_blank" class="inline-block bg-cyan-500 text-slate-950 font-black px-8 py-4 rounded-xl text-lg uppercase shadow-lg hover:bg-cyan-400 hover:scale-105 transition-all">
+                        Acceder a MoonPay Partners
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SOLUCIONES Y RWA -->
+        <section id="soluciones" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                <h2 class="text-3xl sm:text-4xl font-black text-yellow-400 uppercase">Soluciones Patrimoniales Avanzadas</h2>
+                <p class="text-slate-400 text-lg">Infraestructura diseñada para proteger tu liquidez y blindar tu privacidad fiscal.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="card-custom p-8 rounded-2xl space-y-4">
+                    <div class="text-yellow-400 text-4xl"><i class="fa-solid fa-vault"></i></div>
+                    <h3 class="text-xl font-bold text-yellow-400 uppercase">Efectivo Físico Directo</h3>
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        En PermutaLibre creemos que el efectivo sigue siendo una forma esencial de pago, evitando bloqueos bancarios y complicaciones.
+                    </p>
+                </div>
+                <div class="card-custom p-8 rounded-2xl space-y-4">
+                    <div class="text-yellow-400 text-4xl"><i class="fa-solid fa-building-shield"></i></div>
+                    <h3 class="text-xl font-bold text-yellow-400 uppercase">Bienes Raíces por Cripto (RWA)</h3>
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        Intermediación jurídica corporativa ante constructoras para adquirir inmuebles canalizando tus activos digitales de manera legal.
+                    </p>
+                </div>
+                <div class="card-custom p-8 rounded-2xl space-y-4">
+                    <div class="text-yellow-400 text-4xl"><i class="fa-solid fa-earth-americas"></i></div>
+                    <h3 class="text-xl font-bold text-yellow-400 uppercase">Corredor Transnacional</h3>
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        Movilización fluida de capital conectando a Colombia, Costa Rica y Venezuela sin los límites del P2P corriente.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FORMULARIO DE REGISTRO DE PERMUTAS -->
+        <section id="registro" class="max-w-4xl mx-auto px-4 py-20">
+            <div class="card-custom p-8 sm:p-14 rounded-3xl border-yellow-400/40 shadow-2xl space-y-8">
+                <div class="text-center space-y-3">
+                    <h2 class="text-2xl sm:text-4xl font-black text-yellow-400 uppercase">Portal de Permuta Inmobiliaria</h2>
+                    <p class="text-slate-300 text-sm sm:text-base">Inserta los datos de tu activo. Nuestro equipo revisará la información de forma privada.</p>
+                </div>
+
+                <form action="https://wa.me/573233936850" method="GET" target="_blank" class="space-y-6">
+                    <div class="space-y-2">
+                        <label class="block text-sm font-bold text-slate-200"><i class="fa-solid fa-map-location-dot text-yellow-400"></i> Tipo de Activo y Ubicación Exacta</label>
+                        <input type="text" name="tipo" placeholder="Ej: Apartamento amoblado en Bogotá o Chía" class="w-full p-4 rounded-xl border-2 border-slate-700 bg-slate-950 text-white focus:border-yellow-400 focus:outline-none" required />
+                    </div>
+                    <div class="space-y-2">
+                        <label class="block text-sm font-bold text-slate-200"><i class="fa-solid fa-tags text-yellow-400"></i> Valor Comercial Estimado (USD o COP)</label>
+                        <input type="text" name="valor" placeholder="Ej: $150,000 USD / $600,000,000 COP" class="w-full p-4 rounded-xl border-2 border-slate-700 bg-slate-950 text-white focus:border-yellow-400 focus:outline-none" required />
+                    </div>
+                    <div class="space-y-2">
+                        <label class="block text-sm font-bold text-slate-200"><i class="fa-solid fa-handshake-angle text-yellow-400"></i> ¿Qué buscas recibir a cambio?</label>
+                        <textarea name="motivo" rows="4" placeholder="Ej: Busco cambio directo por USDT líquidos o efectivo." class="w-full p-4 rounded-xl border-2 border-slate-700 bg-slate-950 text-white focus:border-yellow-400 focus:outline-none" required></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-yellow-400 text-slate-950 font-black p-4 rounded-xl text-lg uppercase tracking-wider shadow-xl hover:bg-white hover:scale-[1.01] transition-all cursor-pointer">
+                        Enviar Activo a Mesa de Validación (WhatsApp)
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- SECCIÓN LEGAL Y HABEAS DATA -->
+        <section id="legal" class="max-w-4xl mx-auto px-4 py-20 space-y-12 border-t border-slate-800">
+            <div class="text-center space-y-3">
+                <h2 class="text-3xl font-black text-yellow-400 uppercase">Legal, Privacidad & Términos</h2>
+                <p class="text-slate-400 text-sm">Cumplimiento normativo estricto bajo la legislación de la República de Colombia.</p>
+            </div>
+
+            <!-- Política de Privacidad -->
+            <div class="card-custom p-8 rounded-2xl space-y-4">
+                <h3 class="text-xl font-bold text-yellow-400 uppercase">Política de Privacidad (Ley 1581 de 2012)</h3>
+                <p class="text-slate-300 text-sm leading-relaxed">
+                    En PermutaLibre nos comprometemos a proteger la privacidad y los datos personales de nuestros usuarios. La información que recopilamos será utilizada exclusivamente para facilitar y asegurar el proceso de intercambio de criptomonedas por efectivo. Cumplimos con la legislación colombiana vigente en materia de protección de datos personales y tratamiento de información (Ley 1581 de 2012 y sus decretos reglamentarios).
+                </p>
+                <p class="text-slate-300 text-sm leading-relaxed">
+                    Los datos personales recolectados son almacenados de forma segura y utilizados para la correcta ejecución de las operaciones, la verificación de identidad, la prevención del lavado de activos y la financiación del terrorismo (LA/FT), y para mantener una comunicación eficaz con nuestros usuarios.
+                </p>
+                <p class="text-slate-300 text-sm leading-relaxed">
+                    PermutaLibre no cede, vende ni transfiere la información personal a terceros, salvo cuando exista obligación legal o el consentimiento explícito del usuario. Los usuarios tienen derecho a acceder, actualizar, rectificar y solicitar la eliminación de sus datos personales.
+                </p>
+            </div>
+
+            <!-- Términos de Servicio -->
+            <div class="card-custom p-8 rounded-2xl space-y-4">
+                <h3 class="text-xl font-bold text-yellow-400 uppercase">Términos de Servicio</h3>
+                <ul class="list-disc list-inside text-slate-300 text-sm space-y-2 leading-relaxed">
+                    <li>El usuario acepta operar dentro de los límites establecidos, con un monto mínimo y máximo estándar por transacción en efectivo de <strong>2 millones de pesos colombianos</strong>.</li>
+                    <li>El proceso de intercambio requiere que el usuario envíe las criptomonedas a la dirección o código QR indicado (red BSC u otra habilitada), recibiendo a cambio el efectivo de forma inmediata tras la firma de documentos correspondientes.</li>
+                    <li>PermutaLibre se reserva el derecho de solicitar documentos adicionales para cumplir con disposiciones legales relativas a la prevención de LA/FT.</li>
+                    <li>El usuario es responsable de revisar la tarifa vigente antes de pactar cualquier operación y de proporcionar información veraz.</li>
+                    <li>La firma de documentos digitales o físicos es obligatoria para validar la operación y proteger los intereses de ambas partes.</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#04070d] border-t-2 border-[#0f3460] py-10 text-center text-slate-500 text-sm space-y-3">
+        <div class="max-w-7xl mx-auto px-4 space-y-2">
+            <p>Teléfono: (+57) 323 393 6850 | e-mail: contacto@permutalibre.com.co</p>
+            <p>&copy; 2026 PermutaLibre Global S.A.S. All rights reserved. Cobertura: Bogotá y Chía.</p>
+        </div>
+    </footer>
+
+    <!-- SCRIPT DE TASA EN VIVO -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const copRate = getEffectiveRate('cop');
+            const el = document.getElementById('tasa-cop-display');
+            if(el) {
+                el.innerText = `$${copRate.toLocaleString('es-CO')} COP por USDT`;
+            }
+        });
+    </script>
+</body>
+</html>
